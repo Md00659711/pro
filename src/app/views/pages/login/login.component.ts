@@ -28,6 +28,7 @@ export class LoginComponent {
           if (data.status == 1){
             this.router.navigate(['dashboard']);
             this.error_show= false;
+            localStorage.setItem('data', JSON.stringify(data));
           }else{
             this.msg= data.message;
             this.error_show= true;

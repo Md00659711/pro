@@ -124,4 +124,7 @@ export class DashboardComponent implements OnInit {
     this.chartsData.initMainChart(value);
     this.initCharts();
   }
+
+  // data = localStorage.getItem("dataSource");
+  //  values : string = JSON.parse(localStorage.getItem('data'));
 }
