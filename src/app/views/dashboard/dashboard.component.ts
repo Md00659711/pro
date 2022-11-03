@@ -22,6 +22,9 @@ interface IUser {
   styleUrls: ['dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  data : any = localStorage.getItem("data");
+  user : any =JSON.parse(this.data);
+  image_url : any = this.user.data.image;
   constructor(private chartsData: DashboardChartsData) {
   }
 
@@ -113,6 +116,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.initCharts();
+    console.log(this.user);
   }
 
   initCharts(): void {
@@ -125,6 +129,5 @@ export class DashboardComponent implements OnInit {
     this.initCharts();
   }
 
-  // data = localStorage.getItem("dataSource");
-  //  values : string = JSON.parse(localStorage.getItem('data'));
+
 }

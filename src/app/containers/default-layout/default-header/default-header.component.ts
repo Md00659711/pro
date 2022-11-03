@@ -10,6 +10,13 @@ import { ClassToggleService, HeaderComponent } from '@coreui/angular';
 export class DefaultHeaderComponent extends HeaderComponent {
 
   @Input() sidebarId: string = "sidebar";
+  data : any = localStorage.getItem("data");
+  user : any = JSON.parse(this.data);
+  // parent_name : any= this.user.data.name;
+  // parent_phone : any = this.user.data.mobile;
+  // child_name : any = this.user.data.child.name;
+  // child_phone : any = this.user.data.child.mobile;
+
 
   public newMessages = new Array(4)
   public newTasks = new Array(5)
