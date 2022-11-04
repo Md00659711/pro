@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-
+import { LoginService } from '../../projectservice/login.service';
 import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
 
 interface IUser {
@@ -23,9 +23,12 @@ interface IUser {
 })
 export class DashboardComponent implements OnInit {
   data : any = localStorage.getItem("data");
+  pass : any = localStorage.getItem("pass");
   user : any =JSON.parse(this.data);
   image_url : any = this.user.data.image;
-  constructor(private chartsData: DashboardChartsData) {
+  assemblys: any ;
+
+  constructor(private chartsData: DashboardChartsData ,private _login: LoginService,) {
   }
 
   public users: IUser[] = [
@@ -116,7 +119,38 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.initCharts();
-    console.log(this.user);
+    var arg_1;
+    var arg_2;
+    if (this.user.data.child !== undefined) {
+      var child_param = { 
+        child_id: this.user.data.child.id,
+        mobile: this.user.data.child.mobile ,
+        password: this.pass,
+        device_id: "",
+        device_token: "",
+        device_name: ""
+     };
+     arg_1=  child_param;
+     arg_2=  this.user.data.child.access_token;
+    }else{
+      var admin_param = { 
+        sheet_id: this.user.data.id,  
+        mobile: this.user.data.mobile,
+        password: this.pass,
+        device_id: "",
+        device_token: "",
+        device_name: ""
+     }; 
+     arg_1 = admin_param;
+      arg_2   = this.user.data.access_token;
+    }
+    this._login.postuserdata(arg_1, arg_2 ).subscribe({
+      next: (data) => {
+        this.assemblys=data.data.assemblies;
+      }
+
+    });
+    
   }
 
   initCharts(): void {

@@ -12,7 +12,9 @@ export class DefaultHeaderComponent extends HeaderComponent {
   @Input() sidebarId: string = "sidebar";
   data : any = localStorage.getItem("data");
   user : any = JSON.parse(this.data);
-  // parent_name : any= this.user.data.name;
+  name: any;
+  mobile:any;
+  // // parent_name : any= this.user.data.name;
   // parent_phone : any = this.user.data.mobile;
   // child_name : any = this.user.data.child.name;
   // child_phone : any = this.user.data.child.mobile;
@@ -24,5 +26,16 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
   constructor(private classToggler: ClassToggleService) {
     super();
+
+  }
+  ngOnInit(): void {
+    if (this.user.data.child !== undefined) {
+        this.name=this.user.data.child.name;
+        this.mobile=this.user.data.child.mobile;
+    }else{
+        this.name=this.user.data.candidate;
+        this.mobile=this.user.data.mobile;
+    }
+
   }
 }
